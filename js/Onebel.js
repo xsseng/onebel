@@ -1,4 +1,4 @@
-doucment.cookie = "OnebelKey = username,userid"; //demo
+document.cookie = "OnebelKey = username,userid"; //demo
 
 const Onebelhost = "http://www.onebel.org"; //onebelhost
 const secKey = ['ip','devid','mac','cpu']; //要发送的风控指标
@@ -42,10 +42,10 @@ function __autoloadkey(){
 function sentOnebelkey(){
     //这个函数有点长慢慢写
     //情况一，直接套用的情况
-    if(document.getElementById("Onebelsent").tagType === undefined || docuemnt.getElementById("Onebelsent").tagType == null){
-        if(document.getElementById("Onebelsent").stringType == 'value'){
+    if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || docuemnt.getElementById("Onebelsent").getAttribute("tagType") == null){
+        if(document.getElementById("Onebelsent").getAttribute("stringType") == 'value'){
             //发送valueß∂
-        }else if(document.getElementById("Onebelsent").stringType == 'Onebelvalue'){
+        }else if(document.getElementById("Onebelsent").getAttribute("stringType") == 'Onebelvalue'){
             //发送Onebelvalue
         }else{
             //发送innerHTML
