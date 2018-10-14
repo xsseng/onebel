@@ -1,7 +1,7 @@
 document.cookie = "OnebelKey = username,userid"; //demo
 
 const Onebelhost = "http://www.onebel.org"; //onebelhost
-const secKey = ['ip','devid','mac','cpu']; //要发送的风控指标
+const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
 
 /**
 前端将数据发送到 http://www.onebel.org/getdata 例如
@@ -39,7 +39,7 @@ function __autoloadkey(){
         </a>
     </div>
 **/
-function sentOnebelkey(){
+function getOnebelkey(){
     //这个函数有点长慢慢写
     //情况一，直接套用的情况
     if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || docuemnt.getElementById("Onebelsent").getAttribute("tagType") == null){
@@ -55,6 +55,23 @@ function sentOnebelkey(){
 
     } 
 }   
+
+function sentKey(host,path,data){
+    var xmlhttp;
+    if (window.XMLHttpRequest){
+        xmlhttp = new XMLHttpRequest();
+    }else{
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            //返回数据处理办法
+            return xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("POST", host + path, true);
+    xmlhttp.sent(data);
+}
 
 
 
