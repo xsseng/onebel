@@ -2,6 +2,8 @@ document.cookie = "OnebelKey = username,userid"; //demo
 
 const Onebelhost = "http://www.onebel.org"; //onebelhost
 const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
+var onebeldata = new Array();//所有data全部丢进来
+var onebelstatus = 0;
 
 /**
 前端将数据发送到 http://www.onebel.org/getdata 例如
@@ -22,9 +24,14 @@ function getCookie(cookieName) {
 }
 //初始化函数
 function __autoloadkey(){
-	var OnebelKey = new Array();
+	var OnebelKeyType = new Array();
 	var OnebelKeyString = getCookie("OnebelKey");
-	OnebelKey = OnebelKeyString.split(",");
+	OnebelKeyType = OnebelKeyString.split(",");
+    for (var i = OnebelKeyType.length - 1; i >= 0; i--) {
+        //OnebelKeyType[i]
+        onebeldata.push(OnebelKeyType + "=" + getCookie(OnebelKeyType))
+
+    }
 	//处理数据进行发送
 }
 /**
