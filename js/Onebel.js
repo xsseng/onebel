@@ -31,9 +31,8 @@ function __autoloadkey(){
         //OnebelKeyType[i]
         onebeldata.push(OnebelKeyType[i] + "=" + getCookie(OnebelKeyType[i]));
         onebelstatus = 1;
-
+    //处理数据进行发送
     }
-	//处理数据进行发送
 }
 /**
    异步函数
@@ -78,7 +77,7 @@ function sentKey(host,path,data){
         }
     }
     xmlhttp.open("POST", host + path, true);
-    xmlhttp.sent(data);
+    xmlhttp.send(data);
 }
 
 
