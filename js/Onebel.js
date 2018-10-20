@@ -29,7 +29,8 @@ function __autoloadkey(){
 	OnebelKeyType = OnebelKeyString.split(",");
     for (var i = OnebelKeyType.length - 1; i >= 0; i--) {
         //OnebelKeyType[i]
-        onebeldata.push(OnebelKeyType + "=" + getCookie(OnebelKeyType))
+        onebeldata.push(OnebelKeyType[i] + "=" + getCookie(OnebelKeyType[i]));
+        onebelstatus = 1;
 
     }
 	//处理数据进行发送
