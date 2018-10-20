@@ -2,7 +2,8 @@ document.cookie = "OnebelKey = username,userid"; //demo
 
 const Onebelhost = "http://www.onebel.org"; //onebelhost
 const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
-var onebeldata = new Array();//所有data全部丢进来
+var onebeldata = new Array(); //所有data全部丢进来
+var postdata; //经过处理的数据
 var onebelstatus = 0;
 
 /**
@@ -40,7 +41,7 @@ function __autoloadkey(){
    <input id='Onebelsent' Onebelname='username' stringType='value' value=''>
    
    如果input标签因为兼容性问题需要id属性的值配合其他框架可以在外div中添加这个函数，但是必须说明在什么标签里，例如：
-    <div id='Onebelsent' Onebelname='username' tagType='a' stringType='innerHTML'>
+    <div id='Onebelsent' Onebelname='username' tagType='1' stringType='innerHTML'>
         <a>
             被获取到的值
         </a>
@@ -50,18 +51,28 @@ function getOnebelkey(){
     //这个函数有点长慢慢写
     //情况一，直接套用的情况
     if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || docuemnt.getElementById("Onebelsent").getAttribute("tagType") == null){
-        if(document.getElementById("Onebelsent").getAttribute("stringType") == 'value'){
-            //发送value
+        if(document.getElementById("Onebelsent").getAttribute("stringType") == "value"){
+            //发送value属性的值
             onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("value"));
-        }else if(document.getElementById("Onebelsent").getAttribute("stringType") == 'Onebelvalue'){
-            //发送Onebelvalue
+        }else if(document.getElementById("Onebelsent").getAttribute("stringType") == "Onebelvalue"){
+            //发送Onebelvalue属性的值
             onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("Onebelvalue"));
         }else{
             //发送innerHTML
             onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").innerHTML);
         }
     }else{
-        //情况二，发送div的嵌套标签数据
+        //情况二，发送嵌套标签里的数据
+        if(document.getElementById("Onebelsent").getAttribute("stringType") ==  "value"){
+            //发送子元素的value
+            onebeldata.push(document.getElementById("Onebelsent").children[0].getAttribute("value"));
+        }else if(document.getElementById("Onebelsent").getAttribute("stringType") ==  "Onebelname"){
+            //发送子元素的Onebelvalue
+            onebeldata.push(document.getElementById("Onebelsent").children[0].getAttribute("Onebelname"));
+        }else{
+            //发送子元素的innerHTML
+            onebeldata.push(document.getElementById("Onebelsent").children[0].innerHTML);
+        }
 
     } 
 }   
