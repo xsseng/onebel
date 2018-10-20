@@ -51,11 +51,14 @@ function getOnebelkey(){
     //情况一，直接套用的情况
     if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || docuemnt.getElementById("Onebelsent").getAttribute("tagType") == null){
         if(document.getElementById("Onebelsent").getAttribute("stringType") == 'value'){
-            //发送valueß∂
+            //发送value
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("value"));
         }else if(document.getElementById("Onebelsent").getAttribute("stringType") == 'Onebelvalue'){
             //发送Onebelvalue
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("Onebelvalue"));
         }else{
             //发送innerHTML
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").innerHTML);
         }
     }else{
         //情况二，发送div的嵌套标签数据
