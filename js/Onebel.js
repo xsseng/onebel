@@ -50,10 +50,10 @@ function __autoloadkey(){
 function getOnebelkey(){
     //这个函数有点长慢慢写
     //情况一，直接套用的情况
-    if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || docuemnt.getElementById("Onebelsent").getAttribute("tagType") == null){
+    if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || document.getElementById("Onebelsent").getAttribute("tagType") == null){
         if(document.getElementById("Onebelsent").getAttribute("stringType") == "value"){
             //发送value属性的值
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("value"));
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").value);
         }else if(document.getElementById("Onebelsent").getAttribute("stringType") == "Onebelvalue"){
             //发送Onebelvalue属性的值
             onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("Onebelvalue"));
@@ -65,18 +65,18 @@ function getOnebelkey(){
         //情况二，发送嵌套标签里的数据
         if(document.getElementById("Onebelsent").getAttribute("stringType") ==  "value"){
             //发送子元素的value
-            onebeldata.push(document.getElementById("Onebelsent").children[0].getAttribute("value"));
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").children[0].value);
         }else if(document.getElementById("Onebelsent").getAttribute("stringType") ==  "Onebelname"){
             //发送子元素的Onebelvalue
-            onebeldata.push(document.getElementById("Onebelsent").children[0].getAttribute("Onebelname"));
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").children[0].getAttribute("Onebelname"));
         }else{
             //发送子元素的innerHTML
-            onebeldata.push(document.getElementById("Onebelsent").children[0].innerHTML);
+            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").children[0].innerHTML);
         }
 
     } 
 }   
-
+//发送函数
 function sentKey(host,path,data){
     var xmlhttp;
     if (window.XMLHttpRequest){
