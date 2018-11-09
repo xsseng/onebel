@@ -1,7 +1,7 @@
 document.cookie = "OnebelKey = username,userid"; //demo
 
 const Onebelhost = "http://www.onebel.org"; //onebelhost
-const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
+const secKey = ['ip', 'devid', 'mac']; //要发送的风控指标
 var onebeldata = new Array(); //所有data全部丢进来
 var postdata = new Array(); //经过处理的数据
 var disdata = new Array();
