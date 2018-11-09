@@ -1,12 +1,12 @@
 document.cookie = "OnebelKey = username,userid"; //demo
 
 const Onebelhost = "http://www.onebel.org/"; //onebelhost
-const secKey = ['ip', 'devid', 'mac']; //要发送的风控指标
+const Onebelpath = "/api/";
+const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
 var onebeldata = new Array(); //所有data全部丢进来
 var postdata = new Array(); //经过处理的数据
 var disdata = new Array();
-var onebelstatus = 0;
-
+__autoloadkey();
 /**
 前端将数据发送到 http://www.onebel.org/getdata 例如
 http://www.onebel.org/getdata?Onebelkey=Onebel_username&username=用户的用户名&secKey=其他风控指标&ip=用户的IP&devid=用户的设备id&mac=macaddress&cpu=cputype
@@ -32,17 +32,17 @@ function __autoloadkey(){
     for (var i = OnebelKeyType.length - 1; i >= 0; i--) {
         //OnebelKeyType[i]
         onebeldata.push(OnebelKeyType[i] + "=" + getCookie(OnebelKeyType[i]));
-        onebelstatus = 1;
+        sendKey(Onebelhost,Onebelpath,onebeldata);
     //处理数据进行发送
     }
 }
 /**
    异步函数
-   需要id中添加Onebelsent，并且在Onebelname中添加参数名，在stringType中说明取值来自哪里，例如：
-   <input id='Onebelsent' Onebelname='username' stringType='value' value=''>
+   需要id中添加Onebelsend，并且在Onebelname中添加参数名，在stringType中说明取值来自哪里，例如：
+   <input id='Onebelsend' Onebelname='username' stringType='value' value=''>
    
    如果input标签因为兼容性问题需要id属性的值配合其他框架可以在外div中添加这个函数，但是必须说明在什么标签里，例如：
-    <div id='Onebelsent' Onebelname='username' tagType='1' stringType='innerHTML'>
+    <div id='Onebelsend' Onebelname='username' tagType='1' stringType='innerHTML'>
         <a>
             被获取到的值
         </a>
@@ -51,34 +51,34 @@ function __autoloadkey(){
 function getOnebelkey(){
     //这个函数有点长慢慢写
     //情况一，直接套用的情况
-    if(document.getElementById("Onebelsent").getAttribute("tagType") === undefined || document.getElementById("Onebelsent").getAttribute("tagType") == null){
-        if(document.getElementById("Onebelsent").getAttribute("stringType") == "value"){
+    if(document.getElementById("Onebelsend").getAttribute("tagType") === undefined || document.getElementById("Onebelsend").getAttribute("tagType") == null){
+        if(document.getElementById("Onebelsend").getAttribute("stringType") == "value"){
             //发送value属性的值
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").value);
-        }else if(document.getElementById("Onebelsent").getAttribute("stringType") == "Onebelvalue"){
+            onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").value);
+        }else if(document.getElementById("Onebelsend").getAttribute("stringType") == "Onebelvalue"){
             //发送Onebelvalue属性的值
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").getAttribute("Onebelvalue"));
+            onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").getAttribute("Onebelvalue"));
         }else{
             //发送innerHTML
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").innerHTML);
+            onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").innerHTML);
         }
     }else{
         //情况二，发送嵌套标签里的数据
-        if(document.getElementById("Onebelsent").getAttribute("stringType") ==  "value"){
+        if(document.getElementById("Onebelsend").getAttribute("stringType") ==  "value"){
             //发送子元素的value
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").children[0].value);
-        }else if(document.getElementById("Onebelsent").getAttribute("stringType") ==  "Onebelname"){
+            onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").children[0].value);
+        }else if(document.getElementById("Onebelsend").getAttribute("stringType") ==  "Onebelname"){
             //发送子元素的Onebelvalue
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").children[0].getAttribute("Onebelname"));
+            onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").children[0].getAttribute("Onebelname"));
         }else{
             //发送子元素的innerHTML
-            onebeldata.push(document.getElementById("Onebelsent").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsent").children[0].innerHTML);
+            onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").children[0].innerHTML);
         }
 
     } 
 }   
 //发送函数
-function sentKey(host,path,data){
+function sendKey(host,path,data){
     var xmlhttp;
     if (window.XMLHttpRequest){
         xmlhttp = new XMLHttpRequest();
