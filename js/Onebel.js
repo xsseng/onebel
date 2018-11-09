@@ -3,7 +3,8 @@ document.cookie = "OnebelKey = username,userid"; //demo
 const Onebelhost = "http://www.onebel.org"; //onebelhost
 const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
 var onebeldata = new Array(); //所有data全部丢进来
-var postdata; //经过处理的数据
+var postdata = new Array(); //经过处理的数据
+var disdata = new Array();
 var onebelstatus = 0;
 
 /**
@@ -93,10 +94,27 @@ function sentKey(host,path,data){
     xmlhttp.open("POST", host + path, true);
     xmlhttp.send(data);
 }
+//处理onebeldata变为postdata
+//可能存在多次重复的数据，例如["username=cookie","username=startinput", "username=endinput"]
+//根据程序的逻辑性来说如果有cookie data先发送一次cookiedata，如果用户输入，则再次发送inputdata，去除数组中靠前的相同数值
+function getPostdata(onebeldata){
+    for (var i = onebeldata.length - 1; i >= 0; i--) {
+        if(!isInArray(disdata,onebeldata[i].split("=")[0])){
+            postdata.push(onebeldata[i]);
+            disdata.push(onebeldata[i].split("=")[0]);
+        }
+    }
+}
 
-
-
-
+//兼容方式判断数值是否存在数组中
+function isInArray(arr,value){
+    for(var i = 0; i < arr.length; i++){
+        if(value === arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
 
 
 
