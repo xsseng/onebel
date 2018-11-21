@@ -1,13 +1,24 @@
-document.cookie = "OnebelKey = username,userid"; //demo
 
-const Onebelhost = "http://www.onebel.org/"; //onebelhost
-const Onebelpath = "/api/";//onebelpath
+/**
+demo begin
+**/
+
+document.cookie = "OnebelKey = username,userid"; 
+__autoloadkey();
+
+/**
+demo over
+**/
+
+
+const Onebelhost = "http://localhost"; //onebelhost
+const Onebelpath = "/api/data/username";//onebelpath
 const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
 var Onebeldata = new Array(); //所有data全部丢进来
 var postdata = new Array(); //经过处理的数组
 var disdata = new Array();
 var formdata;//最终正确格式的post数据
-__autoloadkey();
+
 /**
 前端将数据发送到 http://www.onebel.org/getdata 例如
 http://www.onebel.org/getdata?Onebelkey=Onebel_username&username=用户的用户名&secKey=其他风控指标&ip=用户的IP&devid=用户的设备id&mac=macaddress&cpu=cputype
@@ -23,7 +34,7 @@ function __autoloadkey(){
         Onebeldata.push(OnebelKeyType[i] + "=" + getCookie(OnebelKeyType[i]));
     //处理数据进行发送
     }
-    sendKey(Onebelhost,Onebelpath,getformdata(Onebeldata));
+    sendKey(Onebelhost,Onebelpath,getFormdata(Onebeldata));
 }
 /**
    异步函数
@@ -69,15 +80,19 @@ function getOnebelkey(){
 //可能存在多次重复的数据，例如["username=cookie","username=startinput", "username=endinput"]
 //根据程序的逻辑性来说如果有cookie data先发送一次cookiedata，如果用户输入，则再次发送inputdata，去除数组中靠前的相同数值
 function getPostdata(Onebeldata){
+    //需要初始化postdata和disdata
+    postdata = [];
+    disdata = [];
     for (var i = Onebeldata.length - 1; i >= 0; i--) {
         if(!isInArray(disdata,Onebeldata[i].split("=")[0])){
             postdata.push(Onebeldata[i]);
             disdata.push(Onebeldata[i].split("=")[0]);
         }
     }
+    return postdata;
 }
 //数组加&传输
-function getformdata(postdata){
+function getFormdata(postdata){
     var formdata = "";
     for (var i = 0; i < postdata.length; i++){
         if (i != postdata.length - 1){
@@ -104,6 +119,11 @@ function sendKey(host,path,data){
     }
     xmlhttp.open("POST", host + path, true);
     xmlhttp.send(data);
+}
+//表单发送封装
+function __changeSendkey(){
+    getOnebelkey();
+    sendKey(Onebelhost,Onebelpath,getFormdata(getPostdata(Onebeldata)));
 }
 //兼容方式判断数值是否存在数组中
 function isInArray(arr,value){
