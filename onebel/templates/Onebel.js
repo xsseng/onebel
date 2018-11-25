@@ -1,17 +1,9 @@
-const Onebelhost = "http://localhost"; //onebelhost
-const Onebelpath = "/api/data/username";//onebelpath
-const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
-var Onebeldata = new Array(); //所有data全部丢进来
-var postdata = new Array(); //经过处理的数组
-var disdata = new Array();
-var formdata;//最终正确格式的post数据
-
 
 /**
 demo begin
 **/
 
-document.cookie = "OnebelKey = username"; 
+document.cookie = "OnebelKey = username,userid"; 
 __autoloadkey();
 
 /**
@@ -19,7 +11,13 @@ demo over
 **/
 
 
-
+const Onebelhost = "http://localhost"; //onebelhost
+const Onebelpath = "/api/data/username";//onebelpath
+const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
+var Onebeldata = new Array(); //所有data全部丢进来
+var postdata = new Array(); //经过处理的数组
+var disdata = new Array();
+var formdata;//最终正确格式的post数据
 
 /**
 前端将数据发送到 http://www.onebel.org/getdata 例如
