@@ -1,12 +1,10 @@
-from flask import Flask, url_for, redirect
-from flask import render_template
-from flask import request
-from flask import make_response
+from flask import Flask, url_for, redirect, render_template, request, make_response
+from module.riskManage import *
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Onebel is workerd'
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
@@ -20,6 +18,14 @@ def onebel_data(onebelkey):
         response = make_response(onebelkey + '=' + onebel)
         response.headers['Access-Control-Allow-Origin'] = '*'
         username = request.form.get('username')
+        #风险控制信息
+        ip = request.remote_addr
+        user_agent = request.user_agent
+
+        #类文件
+        t = Helloclass()
+        t.testhello('x')
+        print(ip, user_agent)
 
     return response
 
