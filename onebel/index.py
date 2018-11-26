@@ -13,16 +13,15 @@ def hello_world():
 def hello(name=None):
     return render_template('index.html',name=name)
 
-@app.route('/api/data/username', methods = ['POST'])
-def onebel_data():
+@app.route('/api/data/<onebelkey>', methods = ['POST', 'OPTIONS'])
+def onebel_data(onebelkey):
     if request.method == 'POST':
-#       onebel = request.form['username']
-#       response = make_response(onebelkey + '=')
-#       response.headers['Access-Control-Allow-Origin'] = '*'
+        onebel = request.form['username']
+        response = make_response(onebelkey + '=' + onebel)
+        response.headers['Access-Control-Allow-Origin'] = '*'
         username = request.form.get('username')
-        print(username)
-#https://yq.aliyun.com/ask/327176
-    return 's' + str(username)
+
+    return response
 
 
 if __name__ == '__main__':

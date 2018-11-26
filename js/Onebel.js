@@ -120,6 +120,7 @@ function sendKey(host,path,data){
         }
     }
     xmlhttp.open("POST", host + path, true);
+    xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8")
     xmlhttp.send(data);
 }
 //表单发送封装
