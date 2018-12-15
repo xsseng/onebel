@@ -14,18 +14,20 @@ def hello(name=None):
 @app.route('/api/data/<onebelkey>', methods = ['POST', 'OPTIONS'])
 def onebel_data(onebelkey):
     if request.method == 'POST':
+        #开始取值
         onebel = request.form['username']
-        response = make_response(onebelkey + '=' + onebel)
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        username = request.form.get('username')
         #风险控制信息
         ip = request.remote_addr
         user_agent = request.user_agent
 
         #类文件
+        #风控计算
         t = Helloclass()
-        t.testhello('x')
-        print(ip, user_agent)
+        t.testhello(ip, user_agent)
+
+        #输出
+        response = make_response(onebelkey + '=' + onebel)
+        response.headers['Access-Control-Allow-Origin'] = '*'
 
     return response
 
