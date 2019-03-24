@@ -6,16 +6,21 @@ app = Flask(__name__)
 def hello_world():
     return 'Onebel is workerd'
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
+@app.route('/test/')
+@app.route('/test/<name>')
 def hello(name=None):
     return render_template('index.html',name=name)
+
+@app.route('/login/')
+def login(name=None):
+    return render_template('login.html',name=name)
+
 
 @app.route('/api/data/<onebelkey>', methods = ['POST', 'OPTIONS'])
 def onebel_data(onebelkey):
     if request.method == 'POST':
         #开始取值
-        onebel = request.form['username']
+        onebelkey = request.form['username']
         #风险控制信息
         ip = request.remote_addr
         user_agent = request.user_agent
@@ -23,10 +28,10 @@ def onebel_data(onebelkey):
         #类文件
         #风控计算
         t = Helloclass()
-        t.testhello(ip, user_agent)
+        riskScore = t.testhello(ip, user_agent, onebelkey)
 
         #输出
-        response = make_response(onebelkey + '=' + onebel)
+        response = make_response(onebelkey + '=' + onebelkey)
         response.headers['Access-Control-Allow-Origin'] = '*'
 
     return response

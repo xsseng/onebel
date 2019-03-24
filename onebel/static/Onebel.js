@@ -1,16 +1,3 @@
-
-/**
-demo begin
-**/
-
-document.cookie = "OnebelKey = username,userid"; 
-__autoloadkey();
-
-/**
-demo over
-**/
-
-
 const Onebelhost = "http://localhost"; //onebelhost
 const Onebelpath = "/api/data/username";//onebelpath
 const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
@@ -19,6 +6,21 @@ var postdata = new Array(); //经过处理的数组
 var disdata = new Array();
 var formdata;//最终正确格式的post数据
 
+
+/**
+demo begin
+**/
+
+document.cookie = "OnebelKey = username"; 
+__autoloadkey();
+
+/**
+demo over
+**/
+
+
+
+
 /**
 前端将数据发送到 http://www.onebel.org/getdata 例如
 http://www.onebel.org/getdata?Onebelkey=Onebel_username&username=用户的用户名&secKey=其他风控指标&ip=用户的IP&devid=用户的设备id&mac=macaddress&cpu=cputype
@@ -26,9 +28,9 @@ http://www.onebel.org/getdata?Onebelkey=Onebel_username&username=用户的用户
 **/
 //初始化函数
 function __autoloadkey(){
-	var OnebelKeyType = new Array();
-	var OnebelKeyString = getCookie("OnebelKey");
-	OnebelKeyType = OnebelKeyString.split(",");
+    var OnebelKeyType = new Array();
+    var OnebelKeyString = getCookie("OnebelKey");
+    OnebelKeyType = OnebelKeyString.split(",");
     for (var i = OnebelKeyType.length - 1; i >= 0; i--) {
         //OnebelKeyType[i]
         Onebeldata.push(OnebelKeyType[i] + "=" + getCookie(OnebelKeyType[i]));
@@ -118,6 +120,7 @@ function sendKey(host,path,data){
         }
     }
     xmlhttp.open("POST", host + path, true);
+    xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8")
     xmlhttp.send(data);
 }
 //表单发送封装
