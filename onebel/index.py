@@ -1,20 +1,32 @@
-from flask import Flask, url_for, redirect, render_template, request, make_response
+from flask import Flask, url_for, redirect, render_template, request, make_response, session
 from module.riskManage import *
+from module.Mysql import *
+from datetime import datetime,timedelta
+import os
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days = 7)
+#https://www.cnblogs.com/nimingdaoyou/p/9037655.html  SESSION
 
 @app.route('/')
 def hello_world():
-    return 'Onebel is workerd'
+    t = Mysqlclass()
+    x = t.getOnedata('SELECT * from crm_user')
+    return "Database version :" + str(x)
 
 @app.route('/test/')
 @app.route('/test/<name>')
 def hello(name=None):
     return render_template('index.html',name=name)
 
-@app.route('/login/')
+@app.route('/login/', methods = ['GET', 'POST'])
 def login(name=None):
-    return render_template('login.html',name=name)
-
+    if request.method == 'GET':
+        return render_template('login.html',name=name)
+    else:
+        #处理登录逻辑
+        return 0
 
 @app.route('/api/data/<onebelkey>', methods = ['POST', 'OPTIONS'])
 def onebel_data(onebelkey):

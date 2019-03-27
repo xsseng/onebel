@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://172.18.1.122:10000/login -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Onebel - Login - 登录</title>
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="referrer" content="never">
+    <link rel="stylesheet" href="../static/main.6bdc0fbbd7735377eda3.css">
+    <!-- 此处可以保存一下用户登录信息 -->
+    <script></script>
+  <style type="text/css"></style><style type="text/css"></style><style type="text/css"></style><style type="text/css"></style><style type="text/css">.rtl { direction: rtl; } .vdp-datepicker { position: relative; text-align: left; } .vdp-datepicker * { box-sizing: border-box; } .vdp-datepicker__calendar { position: absolute; z-index: 100; background: #fff; width: 300px; border: 1px solid #ccc; } .vdp-datepicker__calendar header { display: block; line-height: 40px; } .vdp-datepicker__calendar header span { display: inline-block; text-align: center; width: 71.42857142857143%; float: left; } .vdp-datepicker__calendar header .prev, .vdp-datepicker__calendar header .next { width: 14.285714285714286%; float: left; text-indent: -10000px; position: relative; } .vdp-datepicker__calendar header .prev:after, .vdp-datepicker__calendar header .next:after { content: ''; position: absolute; left: 50%; top: 50%; -webkit-transform: translateX(-50%) translateY(-50%); transform: translateX(-50%) translateY(-50%); border: 6px solid transparent; } .vdp-datepicker__calendar header .prev:after { border-right: 10px solid #000; margin-left: -5px; } .vdp-datepicker__calendar header .prev.disabled:after { border-right: 10px solid #ddd; } .vdp-datepicker__calendar header .next:after { border-left: 10px solid #000; margin-left: 5px; } .vdp-datepicker__calendar header .next.disabled:after { border-left: 10px solid #ddd; } .vdp-datepicker__calendar header .prev:not(.disabled), .vdp-datepicker__calendar header .next:not(.disabled), .vdp-datepicker__calendar header .up:not(.disabled) { cursor: pointer; } .vdp-datepicker__calendar header .prev:not(.disabled):hover, .vdp-datepicker__calendar header .next:not(.disabled):hover, .vdp-datepicker__calendar header .up:not(.disabled):hover { background: #eee; } .vdp-datepicker__calendar .disabled { color: #ddd; cursor: default; } .vdp-datepicker__calendar .flex-rtl { display: flex; width: inherit; flex-wrap: wrap; } .vdp-datepicker__calendar .cell { display: inline-block; padding: 0 5px; width: 14.285714285714286%; height: 40px; line-height: 40px; text-align: center; vertical-align: middle; border: 1px solid transparent; } .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day, .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month, .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year { cursor: pointer; } .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover, .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover, .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover { border: 1px solid #4bd; } .vdp-datepicker__calendar .cell.selected { background: #4bd; } .vdp-datepicker__calendar .cell.selected:hover { background: #4bd; } .vdp-datepicker__calendar .cell.selected.highlighted { background: #4bd; } .vdp-datepicker__calendar .cell.highlighted { background: #cae5ed; } .vdp-datepicker__calendar .cell.highlighted.disabled { color: #a3a3a3; } .vdp-datepicker__calendar .cell.grey { color: #888; } .vdp-datepicker__calendar .cell.grey:hover { background: inherit; } .vdp-datepicker__calendar .cell.day-header { font-size: 75%; white-space: no-wrap; cursor: inherit; } .vdp-datepicker__calendar .cell.day-header:hover { background: inherit; } .vdp-datepicker__calendar .month, .vdp-datepicker__calendar .year { width: 33.333%; } .vdp-datepicker__clear-button, .vdp-datepicker__calendar-button { cursor: pointer; font-style: normal; } .vdp-datepicker__clear-button.disabled, .vdp-datepicker__calendar-button.disabled { color: #999; cursor: default; } </style><style type="text/css">
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+.app-main {
+  width: 100%;
+  height: 100%;
+}
+</style><style type="text/css">
+.login {
+  width: 100%;
+  height: 100%;
+  background-image: url("https://file.iviewui.com/iview-admin/login_bg.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.login-con {
+  position: absolute;
+  right: 160px;
+  top: 50%;
+  -webkit-transform: translateY(-60%);
+          transform: translateY(-60%);
+  width: 300px;
+}
+.login-con-header {
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  padding: 30px 0;
+}
+.login-con .form-con {
+  padding: 10px 0 0;
+}
+.login-con .login-tip {
+  font-size: 10px;
+  text-align: center;
+  color: #c3c3c3;
+}
+.ali-box {
+  height: 34px;
+  position: relative;
+}
+.ali-box .ali-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: #fff;
+  z-index: 2;
+}
+.hb-modal-input {
+  width: 260px;
+  margin: 0 auto;
+}
+.hb-modal-input /deep/ .ivu-input-group-prepend {
+  padding: 3px 12px;
+}
+.hb-center-modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.hb-center-modal .ivu-modal {
+  top: 0;
+}
+.hb-center-modal .ivu-modal-body {
+  padding-bottom: 30px;
+}
+.hb-center-modal.ali-modal .ivu-modal-footer {
+  display: none;
+}
+.hb-center-modal .ivu-form-item {
+  margin-bottom: 0;
+}
+.hb-center-modal .ivu-form-item-error-tip {
+  width: 260px;
+  margin: 0 auto;
+  padding-top: 10px;
+  position: relative;
+}
+.count-down-box {
+  padding-top: 8px;
+  width: 260px;
+  margin: 0 auto;
+}
+.count-down-box .disable {
+  color: #aaa;
+}
+</style><style type="text/css">
+</style></head>
+
+  <body>
+    <div id="main" class="app-main"><div class="login"><div class="login-con"><div class="ivu-card"><div class="ivu-card-head"><p><i class="ivu-icon ivu-icon-log-in"></i>
+        欢迎登录
+      </p></div> <!----> <div class="ivu-card-body"> <div class="form-con"><form autocomplete="off" class="ivu-form ivu-form-label-right" action=".。/login/" method="post"><div class="ivu-form-item ivu-form-item-required"><!----> <div class="ivu-form-item-content"><div class="ivu-input-wrapper ivu-input-wrapper-large ivu-input-type ivu-input-group ivu-input-group-large ivu-input-group-with-prepend"><div class="ivu-input-group-prepend" style=""><span><i class="ivu-icon ivu-icon-md-person" style="font-size: 16px;"></i></span></div> <!----> <i class="ivu-icon ivu-icon-ios-loading ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i> <input autocomplete="off" spellcheck="false" type="text" placeholder="请输入用户名" class="ivu-input ivu-input-large" name="username"> <!----></div> <!----></div></div> <div class="ivu-form-item ivu-form-item-required"><!----> <div class="ivu-form-item-content"><div class="ivu-input-wrapper ivu-input-wrapper-large ivu-input-type ivu-input-group ivu-input-group-large ivu-input-group-with-prepend"><div class="ivu-input-group-prepend" style=""><span><i class="ivu-icon ivu-icon-md-key" style="font-size: 14px;"></i></span></div> <!----> <i class="ivu-icon ivu-icon-ios-loading ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i> <input autocomplete="off" spellcheck="false" type="password" placeholder="请输入密码" class="ivu-input ivu-input-large" name="password"> <!----></div> <!----></div></div> <div class="ivu-form-item"><!----> <div class="ivu-form-item-content"><button onclick="document.forms[0].submit()" type="button" class="ivu-btn ivu-btn-primary ivu-btn-long ivu-btn-large"><!----> <!----> <span>登录</span></button> <!----></div></div></form></div></div></div></div> <!----> <!----></div></div>
+    <div class="lock-screen-back" id="lock_screen_back"></div>
+ <div class="ivu-loading-bar" style="height: 2px; display: none;"><div class="ivu-loading-bar-inner ivu-loading-bar-inner-color-primary" style="width: 0%; height: 2px;"></div></div>
+  
+
+<div data-transfer="true" class="v-transfer-dom"><div class="ivu-modal-mask" style="display: none;"></div> <div class="ivu-modal-wrap ivu-modal-hidden hb-center-modal ali-modal"><div class="ivu-modal" style="width: 520px; display: none;"><div class="ivu-modal-content"><a class="ivu-modal-close"><i class="ivu-icon ivu-icon-ios-close"></i></a> <div class="ivu-modal-header"><p><i class="ivu-icon ivu-icon-ios-information-circle"></i> <span>请滑动滑块</span></p></div> <div class="ivu-modal-body"> <form autocomplete="off" class="ivu-form ivu-form-label-right"><div class="ali-box"><div id="alislid"></div> <div class="ali-loading" style="display: none;"><div class="ivu-spin ivu-spin-large ivu-spin-fix"><div class="ivu-spin-main"><span class="ivu-spin-dot"></span> <div class="ivu-spin-text"></div></div></div></div></div> <p class="count-down-box"><!----></p></form> </div> <div class="ivu-modal-footer"><div><button type="button" class="ivu-btn ivu-btn-primary ivu-btn-long ivu-btn-large"><!----> <!----> <span>确认</span></button></div></div></div></div></div></div></body></html>

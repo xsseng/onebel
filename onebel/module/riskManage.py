@@ -10,7 +10,7 @@ class Helloclass:
 		print("useragent:" + str(user_agent))
 		#-*-    记录数据     -*-#
 
-		r = Redisclass.redisCon()
+		r = Redisclass.redisCon(self)
 		r.set(onebelkey, ip, ex=36000)#存入onekey与访问IP
 		Redisclass.setIPrisk(r, ip)#设置Ip访问自增，这里没有过期时间，需要走一遍逻辑
 
@@ -30,7 +30,7 @@ class Helloclass:
 
 
 class Redisclass:
-	def redisCon():
+	def redisCon(self):
 		#flask https://blog.csdn.net/zhengwantong/article/details/79497699
 		#创建连接池
 		pool = redis.ConnectionPool(host=module.config.DB_HOST,port=module.config.DB_PORT,db=module.config.DB,decode_responses=True,password=module.config.DB_PWD)
