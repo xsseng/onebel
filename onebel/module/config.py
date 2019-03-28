@@ -6,7 +6,7 @@
 # 数据库名称
 DB = 0
 # 数据库链接地址
-DB_HOST = ''
+DB_HOST = 'www.kolue.com'
 # 数据库端口
 DB_PORT = 6379
 # 数据库登录密码
@@ -14,7 +14,7 @@ DB_PWD = ''
 
 ### Mysql参数 ###
 # 数据库名称
-MYSQL_HOST = ''
+MYSQL_HOST = 'vps2.kolue.com'
 # 数据库用户
 MYSQL_USER = 'onebel'
 # 数据库密码

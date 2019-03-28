@@ -5,18 +5,16 @@ import module.config
 class Mysqlclass:
 	def __init__(self):
 		self.db = pymysql.connect(module.config.MYSQL_HOST, module.config.MYSQL_USER, module.config.MYSQL_PWD, module.config.MYSQL_DB)
-		print('构造')
 
 	def connMysql(self):
 		cursor = self.db.cursor()
 		return cursor
 
-	def getOnedata(self, sql):
+	def getOnedata(self, sql, param):
 		cursor = self.db.cursor()
-		cursor.execute(sql)
+		cursor.execute(sql,param)
 		result = cursor.fetchone()
 		return result
 
 	def __del__(self):
 		self.db.close()
-		print('拆构')

@@ -1,6 +1,7 @@
 from flask import Flask, url_for, redirect, render_template, request, make_response, session
 from module.riskManage import *
 from module.Mysql import *
+from module.header import *
 from datetime import datetime,timedelta
 import os
 
@@ -12,7 +13,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days = 7)
 @app.route('/')
 def hello_world():
     t = Mysqlclass()
-    x = t.getOnedata('SELECT * from crm_user')
+    x = t.getOnedata('SELECT * from crm_user', None)
     return "Database version :" + str(x)
 
 @app.route('/test/')
@@ -25,8 +26,26 @@ def login(name=None):
     if request.method == 'GET':
         return render_template('login.html',name=name)
     else:
+        username = request.form['username']
+        password = request.form['password']
+        t = Mysqlclass()
+        q = t.getOnedata("SELECT * from crm_user where username = %s and password = %s",(username,password))
+        if q:
+            session.permanent = True
+            session['isLogin'] = 1
+            session['username'] = username
+            return redirect(url_for('member'))
+        else:
+            return 'password error'
         #处理登录逻辑
-        return 0
+
+@app.route('/member')
+def member(name=None):
+    t = doHeader()
+    if t.islogin():
+        return '0'
+
+    return 'hello' + str(session.get('username'))
 
 @app.route('/api/data/<onebelkey>', methods = ['POST', 'OPTIONS'])
 def onebel_data(onebelkey):
