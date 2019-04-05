@@ -2,6 +2,19 @@
 
 Onebel是一个开源的**安全数据缓存系统**，通过三方身份验证使数据库中的敏感数据安全存储和使用，它具有强大的检测引擎，计算对关键敏感数据的合规性。更多信息请关注我们的官网 www.onebel.org
 
+# 快速安装
+Onebel基于python3+flask，在主目录下拥有venv的环境，故而你可以很快起一个onebel环境
+
+pip install virtualenv
+git clone https://github.com/xsseng/onebel.git
+cd onebel/onebel/
+source venv/bin/activate
+python run.py
+
+接着访问localhost，你就可以看到onebel is worked！
+
+当然你需要他正确的工作，需要进入module/config.py输入你的mysql与redis的配置
+
 
 # Onebel.js文档
 
@@ -41,3 +54,10 @@ Onebel是一个开源的**安全数据缓存系统**，通过三方身份验证�
 `<input id='Onebelsend' Onebelname='username' stringType='value' name='username' value='' onchange="getOnebelkey()">`
 `<p>请输入密码</p>`
 `<input id='' name=password value=''>`
+
+# Onebel
+
+
+
+
+

@@ -2,7 +2,7 @@
 from . import main
 from flask import request, render_template, session, redirect, url_for, make_response
 from module.Mysql import *
-from module.header import *
+from module.loginAuth import *
 
 @main.route('/index')
 def index():
@@ -21,15 +21,12 @@ def login(name=None):
             session.permanent = True
             session['isLogin'] = 1
             session['username'] = username
-            return redirect(url_for('main.member'))
+            return redirect('/admin/member')
         else:
             return 'password error'
         #处理登录逻辑
 
 @main.route('/member')
+@loginAuth
 def member(name=None):
-    t = doHeader()
-    if t.islogin():
-        return '0'
-
-    return 'hello' + str(session.get('username'))
+	return 'hello' + str(session.get('username'))
