@@ -10,7 +10,7 @@ DB_HOST = 'www.kolue.com'
 # 数据库端口
 DB_PORT = 6379
 # 数据库登录密码
-DB_PWD = ''
+DB_PWD = 'Kcclan1!'
 
 ### Mysql参数 ###
 # 数据库名称
@@ -18,7 +18,7 @@ MYSQL_HOST = '123.207.14.40'
 # 数据库用户
 MYSQL_USER = 'onebel'
 # 数据库密码
-MYSQL_PWD = ''
+MYSQL_PWD = 'Kcclan1!'
 # 数据库名称
 MYSQL_DB = 'gsy_crm'
 # 数据库端口
