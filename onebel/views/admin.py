@@ -1,17 +1,17 @@
 # -*- coding: UTF-8 -*-
-from . import main
+from . import users
 from flask import request, render_template, session, redirect, url_for, make_response
 from module.Mysql import *
 from module.loginAuth import *
 
-@main.route('/index')
+@users.route('/index')
 def index():
-	return 'hello world!'
+	return render_template('index.html')
 
-@main.route('/login', methods = ['GET', 'POST'])
-def login(name=None):
+@users.route('/login', methods = ['GET', 'POST',])
+def login():
     if request.method == 'GET':
-        return render_template('login.html',name=name)
+        return render_template('login.html',name=None)
     else:
         username = request.form['username']
         password = request.form['password']
@@ -21,12 +21,12 @@ def login(name=None):
             session.permanent = True
             session['isLogin'] = 1
             session['username'] = username
-            return redirect('/admin/member')
+            return redirect(url_for('admin.member'))
         else:
             return 'password error'
         #处理登录逻辑
 
-@main.route('/member')
-@loginAuth
-def member(name=None):
+@users.route('/member', methods=["GET",])
+@user_login_status_check
+def member():
 	return 'hello' + str(session.get('username'))

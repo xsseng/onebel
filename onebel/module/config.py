@@ -14,7 +14,7 @@ DB_PWD = ''
 
 ### Mysql参数 ###
 # 数据库名称
-MYSQL_HOST = 'vps2.kolue.com'
+MYSQL_HOST = '123.207.14.40'
 # 数据库用户
 MYSQL_USER = 'onebel'
 # 数据库密码

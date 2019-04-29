@@ -11,10 +11,9 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days = 7)
 def hello_world():
 	return 'onebel is worked!'
 
-from views import main as main
-from views import api as api
+from views import *
 
-app.register_blueprint(main)
+app.register_blueprint(users)
 app.register_blueprint(api)
 	
 if __name__ == '__main__':

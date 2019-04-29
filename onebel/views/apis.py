@@ -6,7 +6,7 @@ from module.riskManage import *
 @api.route('/test/')
 @api.route('/test/<name>')
 def hello(name=None):
-    return render_template('index.html',name=name)
+    return render_template('test.html',name=name)
 
 @api.route('/data/<onebelkey>', methods = ['POST', 'OPTIONS'])
 def onebel_data(onebelkey):
