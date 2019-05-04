@@ -10,7 +10,7 @@ def user_login_status_check(func):
     @wraps(func)
     def wapper(*args, **kwargs):
         # 获取session
-        _session = session.get("isLogin", "")
+        _session = session.get("isLogin", "1")
         # 校验是否登录状态
         if _session:
             return func(*args, **kwargs)

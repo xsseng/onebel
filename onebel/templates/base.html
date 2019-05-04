@@ -161,14 +161,14 @@
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <button class="search-trigger"><!--<i class="fa fa-search"></i>-->{{ session.username }}</button><!--搜索
                         <div class="form-inline">
                             <form class="search-form">
                                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
-                        </div>
-
+                        </div>-->
+<!--消息
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
@@ -190,7 +190,7 @@
                                 </a>
                             </div>
                         </div>
-
+--><!--消息
                         <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
@@ -231,7 +231,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <div class="user-area dropdown float-right">
@@ -239,14 +239,14 @@
                             <img class="user-avatar rounded-circle" src="/static/images/admin.jpg" alt="User Avatar">
                         </a>
 
-                        <div class="user-menu dropdown-menu">
+                        <div class="user-menu dropdown-menu"><!--消息
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>-->
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="./logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 

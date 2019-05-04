@@ -2,16 +2,19 @@
 from . import users
 from flask import request, render_template, session, redirect, url_for, make_response
 from module.Mysql import *
-from module.loginAuth import *
+from module.public import *
 
 @users.route('/index')
 def index():
-	return render_template('index.html')
+	return 'onebel is worked!'
 
 @users.route('/login', methods = ['GET', 'POST',])
 def login():
     if request.method == 'GET':
-        return render_template('login.html',name=None)
+        if session.get("isLogin", "1"):
+            return redirect(url_for('admin.member'))
+        else:
+            return render_template('login.html')           
     else:
         username = request.form['username']
         password = request.form['password']
@@ -26,7 +29,13 @@ def login():
             return 'password error'
         #处理登录逻辑
 
+@users.route('/logout', methods = ['GET',])
+def logout():
+        session.permanent = True
+        session['isLogin'] = 0
+        return 'logout success'
+
 @users.route('/member', methods=["GET",])
 @user_login_status_check
 def member():
-	return 'hello' + str(session.get('username'))
+	return render_template('index.html')
