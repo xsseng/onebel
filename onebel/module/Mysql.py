@@ -16,5 +16,19 @@ class Mysqlclass:
 		result = cursor.fetchone()
 		return result
 
+	def getAlldata(self, sql, param):
+		cursor = self.db.cursor()
+		cursor.execute(sql,param)
+		result = cursor.fetchall()
+		return result
+
+	def updatedata(self, sql, param):
+		cursor = self.db.cursor()
+		try:
+			cursor.execute(sql,param)
+			return 'update ok'
+		except:
+			return 'mysql error'
+
 	def __del__(self):
 		self.db.close()

@@ -39,3 +39,23 @@ def logout():
 @user_login_status_check
 def member():
 	return render_template('index.html')
+
+@users.route('/editpwd', methods = ['GET', 'POST',])
+@user_login_status_check
+def editpwd():
+    if request.method == 'GET':
+        return render_template('edit-password.html')
+    else:
+        username = get_user()
+        t = Mysqlclass()
+        q = t.updatedata("UPDATE crm_user SET password = %s WHERE username = %s and password = %s",(request.form['newpwd'],username,request.form['oldpwd']))
+        return q
+
+
+
+
+
+
+
+
+

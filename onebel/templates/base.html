@@ -7,7 +7,7 @@
 	{% block head %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - {% block title %}{% endblock %}</title>
+    <title>Onebel - {% block title %}{% endblock %}</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -74,6 +74,59 @@
                     <li class="active">
                         <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
+                    <!-- 用户管理 -->
+                    <li class="menu-title">用户管理</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>资料管理</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-puzzle-piece"></i><a href="./editpwd">修改密码</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">添加账户</a></li>
+                        </ul>
+                    </li>
+                    <!-- 风控管理 -->
+                    <li class="menu-title">风控管理</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>风控配置</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="ui-buttons.html">风控规则列表</a></li>                           
+                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">添加风控规则</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">修改风控规则</a></li>
+                        </ul>
+                        <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>风控告警</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">告警api配置</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                    <!-- 系统管理 -->
+                    <li class="menu-title">系统管理</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>数据配置</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"><</i><a href="ui-buttons.html">数据列表</a></li>                           
+                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">添加数据表</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">修改数据表</a></li>
+                        </ul>
+                        <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>系统管理</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">系统配置列表</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">系统配置增加</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                    <!-- 报表管理 -->
+                    <li class="menu-title">报表管理</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>数据报表</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="ui-buttons.html">事件统计</a></li>                           
+                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">事件检索</a></li>
+                        </ul>
+                    </li>
+                    </li>
+
                     <li class="menu-title">UI elements</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
@@ -262,7 +315,7 @@
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
-                        Copyright &copy; 2018 Ela Admin. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+                        Copyright &copy; 2018 Ela Admin. More Templates <a href="http://www.onebel.org/" target="_blank" title="Onebel">Onebel</a> - Collect from <a href="http://www.onebel.org/" title="onebel" target="_blank">Onebel</a>
                     </div>
                     <div class="col-sm-6 text-right"> Designed by Colorlib
                     </div>

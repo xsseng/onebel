@@ -4,7 +4,8 @@ from datetime import datetime,timedelta
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SECRET_KEY'] = '12345678901234567890abcd'
+#app.config['SECRET_KEY'] = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days = 7)
 
 @app.route('/')

@@ -17,3 +17,9 @@ def user_login_status_check(func):
         else:
             return '系统检测到您还未登录，请先登录'
     return wapper
+
+def get_user():
+    """
+    获取用户名
+    """
+    return session.get("username")
