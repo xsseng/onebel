@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!--  Traffic  -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card"><!-- here -->
+
+                                 <div id="pay-invoice">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <h3 class="text-center">添加数据表</h3>
+                                        </div>
+                                        <hr>
+                                        <form action="#" method="post" novalidate="novalidate">
+                                            <div class="form-group text-center">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="text-muted fa fa-cc-visa fa-2x"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-cc-mastercard fa-2x"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-cc-amex fa-2x"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-cc-discover fa-2x"></i></li>
+                                                </ul>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">对应键值名</label>
+                                                <input id="cc-number" name="keyname" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">数据库名称</label>
+                                                <input id="cc-name" name="dbname" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name">
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">业务表名</label>
+                                                <input id="cc-number" name="tbname" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">字段值</label>
+                                                <input id="cc-number" name="keyvalues" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">是否基于用户行为</label>
+                                                <input id="cc-number" name="ishigerule" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">用户行为配置</label>
+                                                <input id="cc-number" name="ruleconfig" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            </div>
+     
+                                            <div>
+                                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                                    <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                                    <span id="payment-button-amount">添加数据表</span>
+                                                    <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div><!-- here -->
+
+
+
+                            </div>
+                        </div> <!-- .card -->
+
+                    </div>
+                </div>
+                </div>
+            <!-- /#add-category -->
+            </div>
+            <!-- .animated -->
+        </div>
+{% endblock %}

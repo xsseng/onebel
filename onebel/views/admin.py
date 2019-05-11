@@ -69,18 +69,57 @@ def adduser():
             return q
         #return str(q[0])
 
-@users.route('/userlist', methods = ['GET', 'POST',])
+@users.route('/userlist', methods = ['GET',])
 @user_login_status_check
 def userlist():
     if request.method == 'GET':
         t = Mysqlclass()
         q = t.getAlldata("SELECT * from onebel_user",None)
         return render_template('user-list.html', userlist = q)
-    else:
-        return '0'
         #return str(q[0])
 
+#风控管理
+@users.route('/addriskrule', methods = ['GET','POST'])
+@user_login_status_check
+def addriskrule():
+    if request.method == 'GET':
+        return render_template('add-riskrule.html')
+    else:
+        return '还没写'
 
+@users.route('/editriskrule', methods = ['GET',])
+@user_login_status_check
+def editriskrule():
+    if request.method == 'GET':
+        return render_template('edit-riskrule.html')
+    else:
+        return '还没写'
+
+@users.route('/addapi', methods = ['GET',])
+@user_login_status_check
+def addapi():
+    if request.method == 'GET':
+        return render_template('add-alarmapi.html')
+    else:
+        return '还没写'
+
+#数据管理
+@users.route('/adddata', methods = ['GET','POST'])
+@user_login_status_check
+def adddata():
+    if request.method == 'GET':
+        return render_template('add-data.html')
+    else:
+        return '还没写'
+        #return str(q[0])
+
+@users.route('/editdata', methods = ['GET',])
+@user_login_status_check
+def editdata():
+    if request.method == 'GET':
+        return render_template('edit-data.html')
+    else:
+        return '还没写'
 
 
 
