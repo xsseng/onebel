@@ -10,6 +10,11 @@ class Mysqlclass:
 		cursor = self.db.cursor()
 		return cursor
 
+	def execSql(self, sql):
+		cursor = self.db.cursor()
+		result = cursor.execute(sql)
+		return result
+
 	def getOnedata(self, sql, param):
 		cursor = self.db.cursor()
 		cursor.execute(sql,param)
@@ -29,6 +34,24 @@ class Mysqlclass:
 			return 'update ok'
 		except:
 			return 'mysql error'
+
+	def insertdata(self, sql, param):
+		cursor = self.db.cursor()
+		try:
+			cursor.execute(sql,param)
+			self.db.commit()
+			return 'inssert success'
+		except:
+			return 'mysql error'
+
+	def issetdata(self, sql, param):
+		cursor = self.db.cursor()
+		cursor.execute(sql,param)
+		result = cursor.fetchone()
+		if(result):
+			return 'data is isset'
+		else:
+			return 'data is null'
 
 	def __del__(self):
 		self.db.close()

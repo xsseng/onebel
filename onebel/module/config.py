@@ -20,7 +20,7 @@ MYSQL_USER = 'onebel'
 # 数据库密码
 MYSQL_PWD = ''
 # 数据库名称
-MYSQL_DB = 'gsy_crm'
+MYSQL_DB = 'onebel'
 # 数据库端口
 MYSQL_PORT = '3306'
 

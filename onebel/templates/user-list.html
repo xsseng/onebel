@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!--  Traffic  -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card"><!-- here -->
+                        <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Basic Table</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">username</th>
+                                          <th scope="col">password</th>
+                                          <th scope="col">privilege</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  	{% for i in userlist %}
+                                    <tr>
+                                        <th scope="row">{{ i[0] }}</th>
+                                        <td>{{ i[1] }}</td>
+                                        <td>{{ i[2] }}</td>
+                                        <td>{{ i[3] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+<!-- here -->
+
+
+
+                            </div>
+                        </div> <!-- .card -->
+
+                    </div>
+                </div>
+                </div>
+            <!-- /#add-category -->
+            </div>
+            <!-- .animated -->
+        </div>
+{% endblock %}
