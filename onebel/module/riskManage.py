@@ -24,8 +24,22 @@ class Helloclass:
 			riskScore = 100 * 0.5 * 0.3 #100总分 * 打折系数 * 权重比
 		else:
 			riskScore = 100 * 0.3
-
 		print('riskScore = ' , riskScore)
+
+class Rmbyip:
+	def iprm(self, ip, maxip, keyvalue, maxscore):
+		r = Redisclass.redisCon(self)
+		r.set(keyvalue, ip, ex=36000)#存入keyvalue与访问IP，比如username:127.0.0.1
+		Redisclass.setIPrisk(r, ip)
+		if int(r.get(ip)) >= maxip:
+			riskScore = 0 * int(maxscore)
+			return str(riskScore)+'ipcount'+str(r.get(ip))
+		else:#这里可以配置系数
+			riskScore = 1 * int(maxscore)
+			return str(riskScore)
+
+		#return str(riskScore)
+
 
 
 

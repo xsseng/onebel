@@ -2,6 +2,7 @@
 #权限控制
 from flask import session
 from functools import wraps
+import re
 
 def user_login_status_check(func):
     """
@@ -23,3 +24,13 @@ def get_user():
     获取用户名
     """
     return session.get("username")
+
+def api_sqli_waf(sqlvalue):
+    """
+    API无法使用预编译存在sql注入，只能拼接，所以需要有一个waf
+    """
+    x = re.findall('"', sqlvalue, flags=0)
+    if len(x) == 0:
+        return True
+    else:
+        return False

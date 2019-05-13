@@ -85,7 +85,18 @@ def addriskrule():
     if request.method == 'GET':
         return render_template('add-riskrule.html')
     else:
-        return '还没写'
+        t = Mysqlclass()
+        riskrulename = request.form['riskrulename'].strip()
+        risktype = request.form['risktype'].strip()
+        ruleconfig = request.form['ruleconfig'].strip()
+        keyname = request.form['keyname'].strip()
+        status = request.form['status'].strip()
+        #keyname不能重复，所以执行一次查询
+        if t.getOnedata("SELECT * from risk_rule where key_name = %s",(keyname)):
+            return 'keyname已经存在'
+        else:
+            q = t.insertdata("INSERT INTO risk_rule (rule_name,risk_type,rule_config,key_name,status) VALUES (%s,%s,%s,%s,%s)",(riskrulename, risktype, ruleconfig, keyname, status))
+            return q
 
 @users.route('/editriskrule', methods = ['GET',])
 @user_login_status_check
@@ -110,7 +121,20 @@ def adddata():
     if request.method == 'GET':
         return render_template('add-data.html')
     else:
-        return '还没写'
+        keyname = request.form['keyname'].strip()
+        dbname = request.form['dbname'].strip()
+        tbname = request.form['tbname'].strip()
+        keyvalues = request.form['keyvalues'].strip()
+        ishigerule = request.form['ishigerule'].strip()
+        ruleconfig = request.form['ruleconfig'].strip()
+        if len(keyname) ==0 or len(dbname) == 0 or len(tbname) == 0 or len(keyvalues) ==0:
+            return '配置不能为空'
+        t = Mysqlclass()
+        if t.getOnedata("SELECT * from onebel_data where key_name = %s",(keyname)):
+            return 'keyname已经存在'
+        else:
+            q = t.insertdata("INSERT INTO onebel_data (key_name,db_name,tb_name,key_values,is_higeRule,h_Ruleconfig) VALUES (%s,%s,%s,%s,%s,%s)",(keyname, dbname, tbname, keyvalues, ishigerule, ruleconfig))
+            return q
         #return str(q[0])
 
 @users.route('/editdata', methods = ['GET',])
@@ -121,6 +145,14 @@ def editdata():
     else:
         return '还没写'
 
+#系统配置
+@users.route('/addsysconf', methods = ['GET','POST'])
+@user_login_status_check
+def addsysconf():
+    if request.method == 'GET':
+        return render_template('add-sysconf.html')
+    else:
+        return '还没写'
 
 
 
