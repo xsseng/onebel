@@ -4,6 +4,7 @@
 #维度： IP  User_agent 
 import redis
 import module.config
+from module.Mysql import *
 class Helloclass:
 	def testhello(self, ip, user_agent, onebelkey):
 		print("it's worked")
@@ -26,14 +27,34 @@ class Helloclass:
 			riskScore = 100 * 0.3
 		print('riskScore = ' , riskScore)
 
+class Rmpublic:
+	def gettype(selef, rmconfig):
+		config = rmconfig.split("=", 1)
+		return config[0]
+
+	def getconfig(self, rmconfig):
+		config = rmconfig.split("=", 1)
+		return config[1]
+
+	def getniceScore(self):
+		r = Redisclass.redisCon(self)
+		niceScore = r.get('niceScore')
+		if not niceScore:
+			t = Mysqlclass()
+			odresult = t.getOnedata("SELECT config_value from system_config where config_name = 'niceScore'",None)
+			r.set('niceScore', odresult[0], ex=10000)
+			return odresult[0]
+		else:
+			return niceScore
+
 class Rmbyip:
 	def iprm(self, ip, maxip, keyvalue, maxscore):
 		r = Redisclass.redisCon(self)
 		r.set(keyvalue, ip, ex=36000)#存入keyvalue与访问IP，比如username:127.0.0.1
 		Redisclass.setIPrisk(r, ip)
-		if int(r.get(ip)) >= maxip:
+		if int(r.get(ip)) >= int(maxip):
 			riskScore = 0 * int(maxscore)
-			return str(riskScore)+'ipcount'+str(r.get(ip))
+			return str(riskScore)
 		else:#这里可以配置系数
 			riskScore = 1 * int(maxscore)
 			return str(riskScore)

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!--  Traffic  -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card"><!-- here -->
+                        <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">风控规则列表</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">风控规则名称</th>
+                                          <th scope="col">风险类型</th>
+                                          <th scope="col">风控配置</th>
+                                          <th scope="col">对应键值</th>
+                                          <th scope="col">状态</th>
+                                          <th scope="col">操作</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  	{% for i in riskrulelist %}
+                                    <tr>
+                                        <th scope="row">{{ i[0] }}</th>
+                                        <td>{{ i[1] }}</td>
+                                        {% if i[2]==0 %}
+                                        <td>撞库攻击</td>
+                                        {% else %}
+                                        <td>薅羊毛</td>
+                                        {% endif %}
+                                        <td>{{ i[3] }}</td>
+                                        <td>{{ i[4] }}</td>
+                                        {% if i[5]==1 %}
+                                        <td>开启</td>
+                                        {% else %}
+                                        <td>关闭</td>
+                                        {% endif %}
+                                        <td>修改</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+<!-- here -->
+
+
+
+                            </div>
+                        </div> <!-- .card -->
+
+                    </div>
+                </div>
+                </div>
+            <!-- /#add-category -->
+            </div>
+            <!-- .animated -->
+        </div>
+{% endblock %}

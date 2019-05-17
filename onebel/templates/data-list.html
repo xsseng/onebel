@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!--  Traffic  -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card"><!-- here -->
+                        <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">数据表列表</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">键值名</th>
+                                          <th scope="col">数据库名称</th>
+                                          <th scope="col">表名</th>
+                                          <th scope="col">字段名</th>
+                                          <th scope="col">用户行为策略</th>
+                                          <th scope="col">操作</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  	{% for i in datalist %}
+                                    <tr>
+                                        <th scope="row">{{ i[0] }}</th>
+                                        <td>{{ i[1] }}</td>
+                                        <td>{{ i[2] }}</td>
+                                        <td>{{ i[3] }}</td>
+                                        <td>{{ i[4] }}</td>
+                                        {% if i[5]==0 %}
+                                        <td>否</td>
+                                        {% else %}
+                                        <td>是{{ i[5] }}</td>
+                                        {% endif %}
+                                        <td>修改</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+<!-- here -->
+
+
+
+                            </div>
+                        </div> <!-- .card -->
+
+                    </div>
+                </div>
+                </div>
+            <!-- /#add-category -->
+            </div>
+            <!-- .animated -->
+        </div>
+{% endblock %}

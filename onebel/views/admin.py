@@ -106,6 +106,15 @@ def editriskrule():
     else:
         return '还没写'
 
+@users.route('/riskrulelist', methods = ['GET',])
+@user_login_status_check
+def riskrulelist():
+    if request.method == 'GET':
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from risk_rule",None)
+        return render_template('riskrule-list.html', riskrulelist = q)
+        #return str(q[0])
+
 @users.route('/addapi', methods = ['GET',])
 @user_login_status_check
 def addapi():
@@ -145,6 +154,15 @@ def editdata():
     else:
         return '还没写'
 
+@users.route('/datalist', methods = ['GET',])
+@user_login_status_check
+def datalist():
+    if request.method == 'GET':
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from onebel_data",None)
+        return render_template('data-list.html', datalist = q)
+    else:
+        return '还没写'
 #系统配置
 @users.route('/addsysconf', methods = ['GET','POST'])
 @user_login_status_check
@@ -152,8 +170,26 @@ def addsysconf():
     if request.method == 'GET':
         return render_template('add-sysconf.html')
     else:
-        return '还没写'
+        sysconfname = request.form['sysconfname'].strip()
+        sysconfvalue = request.form['sysconfvalue'].strip()
+        if len(sysconfname ) ==0 or len(sysconfvalue) == 0:
+            return '配置不能为空'
+        t = Mysqlclass()
+        if t.getOnedata("SELECT * from system_config where config_name = %s",(sysconfname)):
+            return '系统配置已经存在'
+        else:
+            q = t.insertdata("INSERT INTO system_config (config_name, config_value) VALUES (%s,%s)",(sysconfname, sysconfvalue))
+            return q
 
+@users.route('/sysconflist', methods = ['GET','POST'])
+@user_login_status_check
+def sysconflist():
+    if request.method == 'GET':
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from system_config",None)
+        return render_template('sysconf-list.html', sysconflist = q)
+    else:
+        return '还没写'
 
 
 

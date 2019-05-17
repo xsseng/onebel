@@ -36,6 +36,7 @@ def get_data(onebelkey):
         onebelkey = request.form['onebelkey']
         where_field = request.form['where_field']
         where_value = request.form['where_value']
+
         #查询onebel key是否配置
         t = Mysqlclass()
         odresult = t.getOnedata("SELECT * from onebel_data where key_name = %s",(onebelkey))
@@ -45,40 +46,56 @@ def get_data(onebelkey):
             dbname = odresult[2]
             tbname = odresult[3]
             keyvalues = odresult[4]
-        #查询是否存在恶意SQL注入
+
+        #此处不可以预编译，需要防止SQL注入的出现
         if api_sqli_waf(where_value) is False:
             return '试图攻击系统被拦截'
-        #查询数据
+
+        #执行SQL语句查询数据
         sql = 'SELECT {keyvalues} from {dbname}.{tbname} where {field} = "{value}"'.format(keyvalues=keyvalues, dbname=dbname, tbname=tbname, field=where_field, value=where_value)
         query_data = t.getOnedata(sql,None)
         if query_data:
-            result = query_data[0]+str(sql)
+            result = query_data[0]
         else:
             result = 'no data'
+            return result
 
-        #查询是否配置风控规则，无规则直接返回数据
+        #查询是否配置风控规则，无规则直接返回数据，有规则则获取风控规则配置后计算风控评分比对后在决定是否返回数据
         isRiskrule = t.getOnedata("SELECT * from risk_rule where key_name = %s and status = 1",(onebelkey))
         if not isRiskrule:
             return result
         else:
-            #获取风控规则配置数据
             rule_name = isRiskrule[1]
             risk_type = isRiskrule[2]
             rule_config = isRiskrule[3]
             key_name = isRiskrule[4]
             status = isRiskrule[5]
-            #这里开始写的代码可以进行二次开发，原生态办法基于ip做风控，这里可以改写为用户行为或者其他设备指纹风控策略
-            #以IP为例子
-            #获取设备指纹
-            ip = request.remote_addr
-            user_agent = request.user_agent
-            exec(rule_config)
-            r = Rmbyip()
-            riskScore = r.iprm(ip, 50, where_value, 50)
+            r = Rmpublic()
+            rmtype = r.gettype(rule_config)
+            '''
+            这里开始开始进行二次开发
+            rmtype为在后台配置的设备指纹字段，诸如ip、 mac、 mime
+            风控计算写在riskManage.py里
+            输出结果为riskScore，根据riskScore决定是否缓存数据到redis供服务器读取
+            '''
+            if rmtype == 'maxip':
+                ip = request.remote_addr
+                maxip = r.getconfig(rule_config)
+                rip = Rmbyip()
+                riskScore = rip.iprm(ip, maxip, where_value, 500)
+            elif rmtype == 'maxage':
+                user_agent = request.user_agent
+                riskScore = 'maxage'
 
-            #实例化风控类
+            #对比评分
+            #niceScore = r.getniceScore()
+            niceScore = 1
+            if int(riskScore) >= niceScore:
+                result = str(result) + '\rniceScore:' + str(niceScore) + '>= riskScore:' + str(riskScore)
+            else:
+                result = str(result) + '\rniceScore:' + str(niceScore) + '<= riskScore:' + str(riskScore)
 
-            return rule_config
+            return result
 
 
 
