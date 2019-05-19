@@ -3,6 +3,7 @@ from . import users
 from flask import request, render_template, session, redirect, url_for, make_response
 from module.Mysql import *
 from module.public import *
+from module.riskManage import *
 
 @users.route('/index')
 def index():
@@ -98,13 +99,26 @@ def addriskrule():
             q = t.insertdata("INSERT INTO risk_rule (rule_name,risk_type,rule_config,key_name,status) VALUES (%s,%s,%s,%s,%s)",(riskrulename, risktype, ruleconfig, keyname, status))
             return q
 
-@users.route('/editriskrule', methods = ['GET',])
+@users.route('/editriskrule', methods = ['GET','POST'])
 @user_login_status_check
 def editriskrule():
     if request.method == 'GET':
-        return render_template('edit-riskrule.html')
+        ruleid = request.args.get('ruleid')
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from risk_rule where id = %s",(ruleid))
+        return render_template('edit-riskrule.html', riskruleinfo = q)
     else:
-        return '还没写'
+        t = Mysqlclass()
+        ruleid = request.args.get('ruleid')
+        risktype = request.form['risktype'].strip()
+        ruleconfig = request.form['ruleconfig'].strip()
+        keyname = request.form['keyname'].strip()
+        status = request.form['status'].strip()
+        if t.getOnedata("SELECT * from risk_rule where key_name = %s",(keyname)):
+            return 'keyname已经存在'
+        else:
+            q = t.insertdata("UPDATE risk_rule SET risk_type=%s,rule_config=%s,key_name=%s,status=%s where id = %s",(risktype, ruleconfig, keyname, status, ruleid))
+            return q
 
 @users.route('/riskrulelist', methods = ['GET',])
 @user_login_status_check

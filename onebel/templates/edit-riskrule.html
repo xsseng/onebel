@@ -27,32 +27,27 @@
     
                                             <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1">风控规则名称</label>
-                                                <input id="cc-name" name="riskrulename" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name">
+                                                <input id="cc-name" name="riskrulename" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" value="{{ riskruleinfo[0][1] }}" disabled>
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">对应风险类型</label>
-                                                <input id="cc-number" name="risktype" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
-                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">对应风险类型</label>
-                                                <input id="cc-number" name="risktype" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <input id="cc-number" name="risktype" type="text" class="form-control cc-number identified visa" value="{{ riskruleinfo[0][2] }}" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">规则配置</label>
-                                                <input id="cc-number" name="ruleconfig" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <input id="cc-number" name="ruleconfig" type="text" class="form-control cc-number identified visa" value="{{ riskruleinfo[0][3] }}" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">对应键值名</label>
-                                                <input id="cc-number" name="keyname" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <input id="cc-number" name="keyname" type="text" class="form-control cc-number identified visa" value="{{ riskruleinfo[0][4] }}" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">状态</label>
-                                                <input id="cc-number" name="status" type="text" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <input id="cc-number" name="status" type="text" class="form-control cc-number identified visa" value="{{ riskruleinfo[0][5] }}" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
      

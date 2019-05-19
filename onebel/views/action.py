@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from . import api
-from flask import request, render_template, redirect, url_for, make_response
+from flask import request, render_template, redirect, url_for, make_response, jsonify
 from module.riskManage import *
 from module.Mysql import *
 from module.public import *
@@ -32,6 +32,7 @@ def onebel_data(onebelkey):
 
 @api.route('/getdata/<onebelkey>', methods = ['GET', 'POST', 'OPTIONS'])
 def get_data(onebelkey):
+    r = Rmpublic()
     if request.method == 'POST':
         onebelkey = request.form['onebelkey']
         where_field = request.form['where_field']
@@ -41,7 +42,10 @@ def get_data(onebelkey):
         t = Mysqlclass()
         odresult = t.getOnedata("SELECT * from onebel_data where key_name = %s",(onebelkey))
         if not odresult:
-            return 'onebelkey 不存在'
+            log = '404, onebekey is not found,onebelkey is' + str(onebelkey)
+            data = {'code': '404', 'onebel_data': None, 'riskrulelog':log}
+            r.setkey(onebelkey+where_field+where_value,str(data))
+            return jsonify(data)
         else:
             dbname = odresult[2]
             tbname = odresult[3]
@@ -49,7 +53,10 @@ def get_data(onebelkey):
 
         #此处不可以预编译，需要防止SQL注入的出现
         if api_sqli_waf(where_value) is False:
-            return '试图攻击系统被拦截'
+            log = 'is a attack. ip is '+str(request.remote_addr)
+            data = {'code': '911', 'onebel_data': None, 'riskrulelog':log}
+            r.setkey(onebelkey+where_field+where_value,str(data))
+            return jsonify(data)
 
         #执行SQL语句查询数据
         sql = 'SELECT {keyvalues} from {dbname}.{tbname} where {field} = "{value}"'.format(keyvalues=keyvalues, dbname=dbname, tbname=tbname, field=where_field, value=where_value)
@@ -57,20 +64,24 @@ def get_data(onebelkey):
         if query_data:
             result = query_data[0]
         else:
-            result = 'no data'
-            return result
+            log = 'no select from database onebeldata by keys'
+            data = {'code': '500', 'onebel_data': None, 'riskrulelog':log}
+            r.setkey(onebelkey+where_field+where_value,str(data))
+            return jsonify(data)
 
         #查询是否配置风控规则，无规则直接返回数据，有规则则获取风控规则配置后计算风控评分比对后在决定是否返回数据
         isRiskrule = t.getOnedata("SELECT * from risk_rule where key_name = %s and status = 1",(onebelkey))
         if not isRiskrule:
-            return result
+            log = 'no risk rule'
+            data = {'code': '200', 'onebel_data':result, 'riskrulelog':log}
+            r.setkey(onebelkey+where_field+where_value,str(data))
+            return jsonify(data)
         else:
             rule_name = isRiskrule[1]
             risk_type = isRiskrule[2]
             rule_config = isRiskrule[3]
             key_name = isRiskrule[4]
             status = isRiskrule[5]
-            r = Rmpublic()
             rmtype = r.gettype(rule_config)
             '''
             这里开始开始进行二次开发
@@ -88,15 +99,17 @@ def get_data(onebelkey):
                 riskScore = 'maxage'
 
             #对比评分
-            #niceScore = r.getniceScore()
-            niceScore = 1
-            if int(riskScore) >= niceScore:
-                result = str(result) + '\rniceScore:' + str(niceScore) + '>= riskScore:' + str(riskScore)
+            niceScore = r.getniceScore()
+            if int(riskScore) >= int(niceScore):
+                log = 'getdata success,its securty request.---niceScore:' + str(niceScore) + '---riskScore:' + str(riskScore)
+                data = {'code': '200', 'onebel_data': result, 'riskrulelog':log}
+                r.setkey(onebelkey+where_field+where_value,str(data))
             else:
-                result = str(result) + '\rniceScore:' + str(niceScore) + '<= riskScore:' + str(riskScore)
-
-            return result
-
+                #风控评分不通过，这里需要记录风险事件
+                log = 'getdata error,because didt pass rule.---niceScore:' + str(niceScore) + '---riskScore:' + str(riskScore)
+                data = {'code': '200', 'onebel_data': None, 'riskrulelog':log}
+                r.setkey(onebelkey+where_field+where_value,str(data))
+            return jsonify(data)
 
 
 

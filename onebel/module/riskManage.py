@@ -28,7 +28,7 @@ class Helloclass:
 		print('riskScore = ' , riskScore)
 
 class Rmpublic:
-	def gettype(selef, rmconfig):
+	def gettype(self, rmconfig):
 		config = rmconfig.split("=", 1)
 		return config[0]
 
@@ -46,6 +46,14 @@ class Rmpublic:
 			return odresult[0]
 		else:
 			return niceScore
+
+	def delniceScore(self):
+		r = Redisclass.redisCon(self)
+		r.delete('niceScore')
+
+	def setkey(self, key, keyvalue):
+		r = Redisclass.redisCon(self)
+		r.set(key, keyvalue, ex=36000)
 
 class Rmbyip:
 	def iprm(self, ip, maxip, keyvalue, maxscore):
@@ -79,4 +87,5 @@ class Redisclass:
 		r.set(ip, req_num, ex=36000)
 		#ip的写法incr(self, name, amount=1) 不存在则创建，存在则自增，在此之后增加缓存时间
 		#https://github.com/stefanlei/notes/blob/55ff97a4c040ccc2f74b82fe5a067bdf856f83e4/Redis/8.%20Python%20操作%20redis.md
+
 
