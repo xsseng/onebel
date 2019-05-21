@@ -112,13 +112,9 @@ def editriskrule():
         ruleid = request.args.get('ruleid')
         risktype = request.form['risktype'].strip()
         ruleconfig = request.form['ruleconfig'].strip()
-        keyname = request.form['keyname'].strip()
         status = request.form['status'].strip()
-        if t.getOnedata("SELECT * from risk_rule where key_name = %s",(keyname)):
-            return 'keyname已经存在'
-        else:
-            q = t.insertdata("UPDATE risk_rule SET risk_type=%s,rule_config=%s,key_name=%s,status=%s where id = %s",(risktype, ruleconfig, keyname, status, ruleid))
-            return q
+        q = t.insertdata("UPDATE risk_rule SET risk_type=%s,rule_config=%s,status=%s where id = %s",(risktype, ruleconfig, status, ruleid))
+        return q
 
 @users.route('/riskrulelist', methods = ['GET',])
 @user_login_status_check
@@ -160,13 +156,26 @@ def adddata():
             return q
         #return str(q[0])
 
-@users.route('/editdata', methods = ['GET',])
+@users.route('/editdata', methods = ['GET','POST'])
 @user_login_status_check
 def editdata():
     if request.method == 'GET':
-        return render_template('edit-data.html')
+        dataid = request.args.get('dataid')
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from onebel_data where id = %s",(dataid))
+        return render_template('edit-data.html', datainfo = q)
     else:
-        return '还没写'
+        t = Mysqlclass()
+        dataid = request.args.get('dataid')
+        dbname = request.form['dbname'].strip()
+        tbname = request.form['tbname'].strip()
+        keyvalues = request.form['keyvalues'].strip()
+        ishigerule = request.form['ishigerule'].strip()
+        ruleconfig = request.form['ruleconfig'].strip()
+        if len(dbname) == 0 or len(tbname) == 0 or len(keyvalues) ==0:
+            return '配置不能为空'
+        q = t.insertdata("UPDATE onebel_data SET db_name=%s,tb_name=%s,key_values=%s,is_higeRule=%s,h_Ruleconfig=%s where id = %s",(dbname, tbname, keyvalues, ishigerule, ruleconfig, dataid))
+        return q
 
 @users.route('/datalist', methods = ['GET',])
 @user_login_status_check
@@ -194,6 +203,25 @@ def addsysconf():
         else:
             q = t.insertdata("INSERT INTO system_config (config_name, config_value) VALUES (%s,%s)",(sysconfname, sysconfvalue))
             return q
+
+@users.route('/editsysconf', methods = ['GET','POST'])
+@user_login_status_check
+def editsysconf():
+    if request.method == 'GET':
+        config_name = request.args.get('config_name')
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from system_config where config_name = %s",(config_name))
+        return render_template('edit-sysconf.html', sysconfiginfo = q)
+    else:
+        config_name = request.args.get('config_name')
+        sysconfvalue = request.form['sysconfvalue'].strip()
+        if len(sysconfvalue) == 0:
+            return '配置不能为空'
+        t = Mysqlclass()
+        q = t.insertdata("UPDATE system_config SET config_value=%s where config_name = %s",(sysconfvalue, config_name))
+        return q
+
+        
 
 @users.route('/sysconflist', methods = ['GET','POST'])
 @user_login_status_check

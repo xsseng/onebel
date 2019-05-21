@@ -111,7 +111,13 @@ def get_data(onebelkey):
                 r.setkey(onebelkey+where_field+where_value,str(data))
             return jsonify(data)
 
-
+@api.route('/server/getdata', methods = ['GET',])
+def sget_data():
+    keyhash = request.args.get('keyhash')
+    r = Redisclass()
+    rob = r.redisCon()
+    result = rob.get(keyhash)
+    return result
 
 
 
