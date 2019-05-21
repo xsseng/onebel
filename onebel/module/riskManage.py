@@ -56,20 +56,28 @@ class Rmpublic:
 		r.set(key, keyvalue, ex=36000)
 
 class Rmbyip:
-	def iprm(self, ip, maxip, keyvalue, maxscore):
+	def iprm(self, ip, maxip, keyvalue):
 		r = Redisclass.redisCon(self)
+		maxscore = self.getipScore()
 		r.set(keyvalue, ip, ex=36000)#存入keyvalue与访问IP，比如username:127.0.0.1
 		Redisclass.setIPrisk(r, ip)
 		if int(r.get(ip)) >= int(maxip):
 			riskScore = 0 * int(maxscore)
 			return str(riskScore)
-		else:#这里可以配置系数
+		else:#这里可以配置系数、打折
 			riskScore = 1 * int(maxscore)
 			return str(riskScore)
 
-		#return str(riskScore)
-
-
+	def getipScore(self):
+		r = Redisclass.redisCon(self)
+		ipScore = r.get('ipScore')
+		if not ipScore:
+			t = Mysqlclass()
+			ipScore = t.getOnedata("SELECT config_value from system_config where config_name = 'ipScore'",None)
+			r.set('ipScore', ipScore[0], ex=10000)
+			return ipScore[0]
+		else:
+			return ipScore
 
 
 class Redisclass:

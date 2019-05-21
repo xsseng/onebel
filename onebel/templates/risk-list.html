@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!--  Traffic  -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card"><!-- here -->
+                        <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">风险事件记录列表</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">规则名称</th>
+                                          <th scope="col">风险类型</th>
+                                          <th scope="col">时间</th>
+                                          <th scope="col">详情</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  	{% for i in risklist %}
+                                    <tr>
+                                        <th scope="row">{{ i[0] }}</th>
+                                        <td>{{ i[1] }}</td>
+                                        <td>{{ i[2] }}</td>
+                                        <td>{{ i[3] }}</td>
+                                        <td>{{ i[4] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+<!-- here -->
+
+
+
+                            </div>
+                        </div> <!-- .card -->
+
+                    </div>
+                </div>
+                </div>
+            <!-- /#add-category -->
+            </div>
+            <!-- .animated -->
+        </div>
+{% endblock %}

@@ -4,6 +4,7 @@ from flask import request, render_template, redirect, url_for, make_response, js
 from module.riskManage import *
 from module.Mysql import *
 from module.public import *
+import time
 
 @api.route('/test/')
 @api.route('/test/<name>')
@@ -93,7 +94,8 @@ def get_data(onebelkey):
                 ip = request.remote_addr
                 maxip = r.getconfig(rule_config)
                 rip = Rmbyip()
-                riskScore = rip.iprm(ip, maxip, where_value, 500)
+                riskScore = rip.iprm(ip, maxip, where_value)
+                #
             elif rmtype == 'maxage':
                 user_agent = request.user_agent
                 riskScore = 'maxage'
@@ -109,6 +111,9 @@ def get_data(onebelkey):
                 log = 'getdata error,because didt pass rule.---niceScore:' + str(niceScore) + '---riskScore:' + str(riskScore)
                 data = {'code': '200', 'onebel_data': None, 'riskrulelog':log}
                 r.setkey(onebelkey+where_field+where_value,str(data))
+                #记录风险事件
+                risk_time = time.asctime(time.localtime(time.time()))
+                t.insertdata("INSERT INTO risk_count (rule_name, risk_type, time , detail) VALUES (%s,%s,%s,%s)",(rule_name, risk_type, risk_time, onebelkey+where_field+where_value+str(data)))
             return jsonify(data)
 
 @api.route('/server/getdata', methods = ['GET',])

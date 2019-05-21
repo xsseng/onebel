@@ -232,6 +232,16 @@ def sysconflist():
         return render_template('sysconf-list.html', sysconflist = q)
     else:
         return '还没写'
+#事件
+@users.route('/risklist', methods = ['GET',])
+@user_login_status_check
+def risklist():
+    if request.method == 'GET':
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from risk_count order by time asc",None)
+        return render_template('risk-list.html', risklist = q)
+    else:
+        return '还没写'
 
 
 
