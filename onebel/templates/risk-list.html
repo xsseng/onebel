@@ -29,7 +29,13 @@
                                     <tr>
                                         <th scope="row">{{ i[0] }}</th>
                                         <td>{{ i[1] }}</td>
-                                        <td>{{ i[2] }}</td>
+                                        {% if i[2]==0 %}
+                                        <td>撞库攻击</td>
+                                        {% elif i[2]==911 %}
+                                        <td>SQL注入攻击</td>
+                                        {% else %}
+                                        <td>薅羊毛</td>
+                                        {% endif %}
                                         <td>{{ i[3] }}</td>
                                         <td>{{ i[4] }}</td>
                                     </tr>

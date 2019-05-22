@@ -45,7 +45,8 @@ def get_data(onebelkey):
         if not odresult:
             log = '404, onebekey is not found,onebelkey is' + str(onebelkey)
             data = {'code': '404', 'onebel_data': None, 'riskrulelog':log}
-            r.setkey(onebelkey+where_field+where_value,str(data))
+            setdata = '{"code": "404", "onebel_data": "null", "riskrulelog":"'+str(log)+'"}'
+            r.setkey(onebelkey+where_field+where_value,str(setdata))
             return jsonify(data)
         else:
             dbname = odresult[2]
@@ -56,7 +57,11 @@ def get_data(onebelkey):
         if api_sqli_waf(where_value) is False:
             log = 'is a attack. ip is '+str(request.remote_addr)
             data = {'code': '911', 'onebel_data': None, 'riskrulelog':log}
-            r.setkey(onebelkey+where_field+where_value,str(data))
+            setdata = '{"code": "911", "onebel_data": "null", "riskrulelog":"'+str(log)+'"}'
+            risk_time = time.asctime(time.localtime(time.time()))
+            riskdata = {"code": "911", "onebel_data": "null", "riskrulelog":log,"ag":request.user_agent}
+            t.insertdata("INSERT INTO risk_count (rule_name, risk_type, time , detail) VALUES ('sqli waf','911',%s,%s)",(risk_time, onebelkey+where_field+where_value+str(riskdata)))
+            r.setkey(onebelkey+where_field+where_value,str(setdata))
             return jsonify(data)
 
         #执行SQL语句查询数据
@@ -67,15 +72,17 @@ def get_data(onebelkey):
         else:
             log = 'no select from database onebeldata by keys'
             data = {'code': '500', 'onebel_data': None, 'riskrulelog':log}
-            r.setkey(onebelkey+where_field+where_value,str(data))
+            setdata = '{"code": "500", "onebel_data": "null", "riskrulelog":"'+str(log)+'"}'
+            r.setkey(onebelkey+where_field+where_value,str(setdata))
             return jsonify(data)
 
         #查询是否配置风控规则，无规则直接返回数据，有规则则获取风控规则配置后计算风控评分比对后在决定是否返回数据
         isRiskrule = t.getOnedata("SELECT * from risk_rule where key_name = %s and status = 1",(onebelkey))
         if not isRiskrule:
             log = 'no risk rule'
-            data = {'code': '200', 'onebel_data':result, 'riskrulelog':log}
-            r.setkey(onebelkey+where_field+where_value,str(data))
+            data = {'code': '200', 'onebel_data':'null', 'riskrulelog':log}
+            setdata = '{"code": "200", "onebel_data": "'+str(result)+'", "riskrulelog":"'+str(log)+'"}'
+            r.setkey(onebelkey+where_field+where_value,str(setdata))
             return jsonify(data)
         else:
             rule_name = isRiskrule[1]
@@ -104,17 +111,19 @@ def get_data(onebelkey):
             niceScore = r.getniceScore()
             if int(riskScore) >= int(niceScore):
                 log = "getdata success,its securty request.---niceScore:" + str(niceScore) + "---riskScore:" + str(riskScore)
-                data = {"code": "200", "onebel_data": result, "riskrulelog":log}
-                r.setkey(onebelkey+where_field+where_value,str(data))
+                data = {"code": "200", "onebel_data": "null", "riskrulelog":log}
+                setdata = '{"code": "200", "onebel_data": "'+str(result)+'", "riskrulelog":"'+str(log)+'"}'
+                r.setkey(onebelkey+where_field+where_value,str(setdata))
             else:
                 #风控评分不通过，这里需要记录风险事件
                 log = "getdata error,because didt pass rule.---niceScore:" + str(niceScore) + "---riskScore:" + str(riskScore)
-                data = {"code": "200", "onebel_data": None, "riskrulelog":log}
-                setdata = '{"code": "200", "onebel_data": None, "riskrulelog":"'+str(log)+'"}'
+                data = {"code": "200", "onebel_data": "null", "riskrulelog":log}
+                setdata = '{"code": "200", "onebel_data": "null", "riskrulelog":"'+str(log)+'"}'
                 r.setkey(onebelkey+where_field+where_value,str(setdata))
                 #记录风险事件
                 risk_time = time.asctime(time.localtime(time.time()))
-                t.insertdata("INSERT INTO risk_count (rule_name, risk_type, time , detail) VALUES (%s,%s,%s,%s)",(rule_name, risk_type, risk_time, onebelkey+where_field+where_value+str(data)))
+                riskdata = {"code": "200", "onebel_data": "null", "riskrulelog":log,"ip":request.remote_addr,"ag":request.user_agent}
+                t.insertdata("INSERT INTO risk_count (rule_name, risk_type, time , detail) VALUES (%s,%s,%s,%s)",(rule_name, risk_type, risk_time, onebelkey+where_field+where_value+str(riskdata)))
             return jsonify(data)
 
 @api.route('/server/getdata', methods = ['GET',])
