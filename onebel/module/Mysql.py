@@ -31,6 +31,7 @@ class Mysqlclass:
 		cursor = self.db.cursor()
 		try:
 			cursor.execute(sql,param)
+			self.db.commit()
 			return 'update ok'
 		except:
 			return 'mysql error'
@@ -40,7 +41,7 @@ class Mysqlclass:
 		try:
 			cursor.execute(sql,param)
 			self.db.commit()
-			return 'inssert success'
+			return 'exec success'
 		except:
 			return 'mysql error'
 

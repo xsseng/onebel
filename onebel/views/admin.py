@@ -116,6 +116,15 @@ def editriskrule():
         q = t.insertdata("UPDATE risk_rule SET risk_type=%s,rule_config=%s,status=%s where id = %s",(risktype, ruleconfig, status, ruleid))
         return q
 
+@users.route('/delriskrule', methods = ['GET',])
+@user_login_status_check
+def delriskrule():
+    if request.method == 'GET':
+        ruleid = request.args.get('ruleid')
+        t = Mysqlclass()
+        q = t.insertdata("DELETE FROM risk_rule where id = %s",(ruleid))
+        return q
+
 @users.route('/riskrulelist', methods = ['GET',])
 @user_login_status_check
 def riskrulelist():
@@ -188,6 +197,15 @@ def editdata():
         if len(dbname) == 0 or len(tbname) == 0 or len(keyvalues) ==0:
             return '配置不能为空'
         q = t.insertdata("UPDATE onebel_data SET db_name=%s,tb_name=%s,key_values=%s,is_higeRule=%s,h_Ruleconfig=%s where id = %s",(dbname, tbname, keyvalues, ishigerule, ruleconfig, dataid))
+        return q
+
+@users.route('/deldata', methods = ['GET',])
+@user_login_status_check
+def deldata():
+    if request.method == 'GET':
+        dataid = request.args.get('dataid')
+        t = Mysqlclass()
+        q = t.insertdata("DELETE FROM onebel_data where id = %s",(dataid))
         return q
 
 @users.route('/datalist', methods = ['GET',])

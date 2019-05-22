@@ -39,7 +39,7 @@
                                         {% else %}
                                         <td>是{{ i[5] }}</td>
                                         {% endif %}
-                                        <td><a href="./editdata?dataid={{ i[0] }}">修改</a></td>
+                                        <td><a href="./editdata?dataid={{ i[0] }}">修改</a> <a href="./deldata?dataid={{ i[0] }}">删除</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
