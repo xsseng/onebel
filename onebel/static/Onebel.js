@@ -1,5 +1,5 @@
 const Onebelhost = "http://localhost"; //onebelhost
-const Onebelpath = "/api/data/username";//onebelpath
+const Onebelpath = "/api/getdata/onebelkey";//onebelpath
 const secKey = ['ip', 'devid', 'mac', 'cpu']; //要发送的风控指标
 var Onebeldata = new Array(); //所有data全部丢进来
 var postdata = new Array(); //经过处理的数组
@@ -12,6 +12,8 @@ demo begin
 **/
 
 document.cookie = "OnebelKey = username"; 
+//新版代码兼容
+var onebelkeys = 'userdata'
 __autoloadkey();
 
 /**
@@ -55,7 +57,9 @@ function getOnebelkey(){
     if(document.getElementById("Onebelsend").getAttribute("tagType") === undefined || document.getElementById("Onebelsend").getAttribute("tagType") == null){
         if(document.getElementById("Onebelsend").getAttribute("stringType") == "value"){
             //发送value属性的值
-            Onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").value);
+            Onebeldata.push("onebelkey=" + onebelkeys);
+            Onebeldata.push("where_field=" + document.getElementById("Onebelsend").getAttribute("Onebelname"));
+            Onebeldata.push("where_value=" + document.getElementById("Onebelsend").value);
         }else if(document.getElementById("Onebelsend").getAttribute("stringType") == "Onebelvalue"){
             //发送Onebelvalue属性的值
             Onebeldata.push(document.getElementById("Onebelsend").getAttribute("Onebelname") + "=" + document.getElementById("Onebelsend").getAttribute("Onebelvalue"));
