@@ -103,14 +103,15 @@ def get_data(onebelkey):
             #对比评分
             niceScore = r.getniceScore()
             if int(riskScore) >= int(niceScore):
-                log = 'getdata success,its securty request.---niceScore:' + str(niceScore) + '---riskScore:' + str(riskScore)
-                data = {'code': '200', 'onebel_data': result, 'riskrulelog':log}
+                log = "getdata success,its securty request.---niceScore:" + str(niceScore) + "---riskScore:" + str(riskScore)
+                data = {"code": "200", "onebel_data": result, "riskrulelog":log}
                 r.setkey(onebelkey+where_field+where_value,str(data))
             else:
                 #风控评分不通过，这里需要记录风险事件
-                log = 'getdata error,because didt pass rule.---niceScore:' + str(niceScore) + '---riskScore:' + str(riskScore)
-                data = {'code': '200', 'onebel_data': None, 'riskrulelog':log}
-                r.setkey(onebelkey+where_field+where_value,str(data))
+                log = "getdata error,because didt pass rule.---niceScore:" + str(niceScore) + "---riskScore:" + str(riskScore)
+                data = {"code": "200", "onebel_data": None, "riskrulelog":log}
+                setdata = '{"code": "200", "onebel_data": None, "riskrulelog":"'+str(log)+'"}'
+                r.setkey(onebelkey+where_field+where_value,str(setdata))
                 #记录风险事件
                 risk_time = time.asctime(time.localtime(time.time()))
                 t.insertdata("INSERT INTO risk_count (rule_name, risk_type, time , detail) VALUES (%s,%s,%s,%s)",(rule_name, risk_type, risk_time, onebelkey+where_field+where_value+str(data)))
@@ -122,7 +123,7 @@ def sget_data():
     r = Redisclass()
     rob = r.redisCon()
     result = rob.get(keyhash)
-    return result
+    return jsonify(result)
 
 
 

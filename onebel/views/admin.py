@@ -12,7 +12,7 @@ def index():
 @users.route('/login', methods = ['GET', 'POST',])
 def login():
     if request.method == 'GET':
-        if session.get("isLogin", "1"):
+        if session.get("isLogin") == 1:
             return redirect(url_for('admin.member'))
         else:
             return render_template('login.html')           
@@ -125,13 +125,26 @@ def riskrulelist():
         return render_template('riskrule-list.html', riskrulelist = q)
         #return str(q[0])
 
-@users.route('/addapi', methods = ['GET',])
+@users.route('/addapi', methods = ['GET','POST'])
 @user_login_status_check
 def addapi():
     if request.method == 'GET':
         return render_template('add-alarmapi.html')
     else:
-        return '还没写'
+        alarm_url = request.form['alarmapi']
+        rule_name = request.form['rulename']
+        alarm_number = request.form['alarmnumber']
+        t = Mysqlclass()
+        q = t.insertdata("INSERT INTO rule_alarm (alarm_url, rule_name, alarm_number) VALUES (%s,%s,%s)",(alarm_url, rule_name, alarm_number))
+        return q
+
+@users.route('/alarmapilist', methods = ['GET',])
+@user_login_status_check
+def alarmapilist():
+    if request.method == 'GET':
+        t = Mysqlclass()
+        q = t.getAlldata("SELECT * from rule_alarm",None)
+        return render_template('alarmapi-list.html', alarmapilist = q)
 
 #数据管理
 @users.route('/adddata', methods = ['GET','POST'])
